@@ -149,7 +149,7 @@
                           <Component id="player_2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="player_3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="player_4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jButton1" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="JButton_Config" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>
@@ -168,7 +168,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="player_4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace pref="218" max="32767" attributes="0"/>
-                      <Component id="jButton1" min="-2" max="-2" attributes="0"/>
+                      <Component id="JButton_Config" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="readyPlayer" min="-2" pref="40" max="-2" attributes="0"/>
                   </Group>
@@ -244,7 +244,7 @@
                 <Property name="text" type="java.lang.String" value="jLabel4"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JButton" name="jButton1">
+            <Component class="javax.swing.JButton" name="JButton_Config">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="63" green="37" red="7" type="rgb"/>
@@ -253,6 +253,9 @@
                   <Image iconType="3" name="/images/config.png"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="JButton_ConfigActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

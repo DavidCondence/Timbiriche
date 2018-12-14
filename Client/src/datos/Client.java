@@ -207,11 +207,10 @@ public class Client implements GameEventListener  {
                         //}  
                         break; 
                     case GameEvent.SESSIONFULL:
-                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){  
-                            cg.connectionFailed();
-                             
-                        //}  
-                        break; 
+                            disconnect();
+                            cg.handleSessionFull();
+                            System.out.println("Session full. Calling handler...");
+                        break;   
                     case GameEvent.USERNAMEOK:
                         //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
                             System.out.println("usero k");

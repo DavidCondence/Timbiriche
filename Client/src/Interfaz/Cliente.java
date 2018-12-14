@@ -8,13 +8,12 @@ package Interfaz;
 import Interfaz.Dialogs.addNickName;
 import Negocio.GameSession;
 import Negocio.Player;
-import Datos.Client;
-import Negocio.GameEvent;
-import Negocio.GameEventListener;
-import java.awt.Dialog;
+import Datos.Client; 
+import Interfaz.Dialogs.Config;
+import Interfaz.Dialogs.sessionFullDialog;
+import Negocio.GameEvent; 
 import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
-import java.awt.event.WindowListener;
+import java.awt.event.WindowEvent; 
 import java.util.UUID;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -27,6 +26,8 @@ public class Cliente extends javax.swing.JFrame {
      */ 
     Player player; 
     addNickName nicknameDialog = new addNickName(); 
+    Config configDialog = new Config(); 
+    sessionFullDialog fullDialog = new sessionFullDialog();
     public Client client; 
     public int defaultPort;
     public String defaultHost; 
@@ -90,7 +91,7 @@ public class Cliente extends javax.swing.JFrame {
         player_2 = new javax.swing.JLabel();
         player_3 = new javax.swing.JLabel();
         player_4 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        JButton_Config = new javax.swing.JButton();
         content = new javax.swing.JPanel();
         jugadorReady = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -161,8 +162,13 @@ public class Cliente extends javax.swing.JFrame {
         player_4.setForeground(new java.awt.Color(255, 255, 255));
         player_4.setText("jLabel4");
 
-        jButton1.setBackground(new java.awt.Color(7, 55, 99));
-        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/config.png"))); // NOI18N
+        JButton_Config.setBackground(new java.awt.Color(7, 55, 99));
+        JButton_Config.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/config.png"))); // NOI18N
+        JButton_Config.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                JButton_ConfigActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout playerReadySidebarLayout = new javax.swing.GroupLayout(playerReadySidebar);
         playerReadySidebar.setLayout(playerReadySidebarLayout);
@@ -180,7 +186,7 @@ public class Cliente extends javax.swing.JFrame {
                     .addComponent(player_2)
                     .addComponent(player_3)
                     .addComponent(player_4)
-                    .addComponent(jButton1))
+                    .addComponent(JButton_Config))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         playerReadySidebarLayout.setVerticalGroup(
@@ -196,7 +202,7 @@ public class Cliente extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(player_4)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
-                .addComponent(jButton1)
+                .addComponent(JButton_Config)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(readyPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
@@ -360,6 +366,10 @@ public class Cliente extends javax.swing.JFrame {
                 return;
     
     }
+    public void handleSessionFull(){
+        fullDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        fullDialog.setVisible(true);
+    }
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
         // TODO add your handling code here:
         System.exit(0);
@@ -372,6 +382,20 @@ public class Cliente extends javax.swing.JFrame {
         client.enviarEvent(newEvent); 
         
     }//GEN-LAST:event_readyPlayerActionPerformed
+
+    private void JButton_ConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_ConfigActionPerformed
+        // TODO add your handling code here:
+        GameSession gs = new GameSession();
+        configDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        jButton3.setEnabled(false);
+        configDialog.addWindowListener(new WindowAdapter() {
+            @Override
+            public void windowClosed(WindowEvent e) {
+                System.out.println("prueba");
+            }  
+        });
+        configDialog.setVisible(true); 
+    }//GEN-LAST:event_JButton_ConfigActionPerformed
      
     /**
      * @param args the command line arguments
@@ -411,10 +435,10 @@ public class Cliente extends javax.swing.JFrame {
         new Cliente("localhost", 1500);
     } 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton JButton_Config;
     private javax.swing.JPanel Sidebar;
     private javax.swing.JButton closeButton;
     private javax.swing.JPanel content;
-    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
