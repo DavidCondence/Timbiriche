@@ -107,9 +107,8 @@ public class Client implements GameEventListener  {
         try{
             if(socket != null) socket.close();
         } catch(Exception e) {}  
-            if(cg != null)
-                System.out.println("eee");
-                //cg.connectionFailed(); 
+            if(cg != null) 
+                cg.connectionFailed(); 
     }  
 
     @Override
@@ -183,6 +182,7 @@ public class Client implements GameEventListener  {
             while(true) {
                 try {
                     gameEvent = (GameEvent) sInput.readObject();  
+                    System.out.println(gameEvent.getType());
                     /**
                     updatePlayerList(gameEvent);
                     System.out.println(gameEvent);
@@ -207,9 +207,8 @@ public class Client implements GameEventListener  {
                         //}  
                         break; 
                     case GameEvent.SESSIONFULL:
-                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
-                        
-                            disconnect();
+                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){  
+                            cg.connectionFailed();
                              
                         //}  
                         break; 
@@ -219,10 +218,11 @@ public class Client implements GameEventListener  {
                              
                         //}  
                         break; 
-                    case GameEvent.USERNAMETAKEN:
-                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
-                            disconnect();
-                        //}  
+                    case GameEvent.USERNAMETAKEN:  
+                        if (gameEvent.getPlayer().getName().equals(username)) {
+                            
+                            cg.connectionFailed();
+                        } 
                         break; 
                     default: 
                         updatePlayerList(gameEvent);

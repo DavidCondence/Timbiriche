@@ -44,14 +44,32 @@ public class Cliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         jugadorReady.setVisible(false);
         playerReadySidebar.setVisible(false);
+        
+        
+        player_1.setText("");
+        player_2.setText("");
+        player_3.setText("");
+        player_4.setText("");
     } 
+    public void connectionFailed() {  
+        client.disconnect();
+        connected = false;
+    }
     public void updatePlayers(ArrayList<Player> players){ 
-  
+        
         String listaJugadores = ""; 
+        int position = 1;
         for (int i = 0; i < players.size(); i++) {
-            listaJugadores = listaJugadores+ "\n" +players.get(i).getName(); 
+            if (position == 1)
+                player_1.setText(players.get(i).getName()); 
+            if (position == 2)
+                player_2.setText(players.get(i).getName()); 
+            if (position == 3)
+                player_3.setText(players.get(i).getName()); 
+            if (position == 4)
+                player_4.setText(players.get(i).getName()); 
+            position++;
         } 
-        Jugadores.setText(listaJugadores);
     }
     /**
      * This method is called from within the constructor to initialize the form.
@@ -67,8 +85,12 @@ public class Cliente extends javax.swing.JFrame {
         jButton3 = new javax.swing.JButton();
         playerReadySidebar = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
-        Jugadores = new javax.swing.JLabel();
         readyPlayer = new javax.swing.JToggleButton();
+        player_1 = new javax.swing.JLabel();
+        player_2 = new javax.swing.JLabel();
+        player_3 = new javax.swing.JLabel();
+        player_4 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         content = new javax.swing.JPanel();
         jugadorReady = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
@@ -113,9 +135,6 @@ public class Cliente extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/players.png"))); // NOI18N
 
-        Jugadores.setForeground(new java.awt.Color(255, 255, 255));
-        Jugadores.setText("Jugadores");
-
         readyPlayer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/notReady.png"))); // NOI18N
         readyPlayer.setPressedIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Ready.png"))); // NOI18N
         readyPlayer.setSelectedIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Ready.png"))); // NOI18N
@@ -126,27 +145,59 @@ public class Cliente extends javax.swing.JFrame {
             }
         });
 
+        player_1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        player_1.setForeground(new java.awt.Color(255, 255, 255));
+        player_1.setText("jLabel3");
+
+        player_2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        player_2.setForeground(new java.awt.Color(255, 255, 255));
+        player_2.setText("jLabel4");
+
+        player_3.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        player_3.setForeground(new java.awt.Color(255, 255, 255));
+        player_3.setText("jLabel3");
+
+        player_4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        player_4.setForeground(new java.awt.Color(255, 255, 255));
+        player_4.setText("jLabel4");
+
+        jButton1.setBackground(new java.awt.Color(7, 55, 99));
+        jButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/config.png"))); // NOI18N
+
         javax.swing.GroupLayout playerReadySidebarLayout = new javax.swing.GroupLayout(playerReadySidebar);
         playerReadySidebar.setLayout(playerReadySidebarLayout);
         playerReadySidebarLayout.setHorizontalGroup(
             playerReadySidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(playerReadySidebarLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(Jugadores)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(playerReadySidebarLayout.createSequentialGroup()
                 .addGroup(playerReadySidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(readyPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE))
                 .addGap(0, 0, Short.MAX_VALUE))
+            .addGroup(playerReadySidebarLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(playerReadySidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(player_1)
+                    .addComponent(player_2)
+                    .addComponent(player_3)
+                    .addComponent(player_4)
+                    .addComponent(jButton1))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         playerReadySidebarLayout.setVerticalGroup(
             playerReadySidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(playerReadySidebarLayout.createSequentialGroup()
                 .addComponent(jLabel2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(Jugadores)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 379, Short.MAX_VALUE)
+                .addComponent(player_1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(player_2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(player_3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(player_4)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 218, Short.MAX_VALUE)
+                .addComponent(jButton1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(readyPlayer, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -163,7 +214,7 @@ public class Cliente extends javax.swing.JFrame {
                 .addGroup(SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(playerReadySidebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(playerReady, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(21, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         content.setBackground(new java.awt.Color(61, 133, 198));
@@ -229,8 +280,8 @@ public class Cliente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 511, Short.MAX_VALUE)
+            .addComponent(Sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -240,7 +291,7 @@ public class Cliente extends javax.swing.JFrame {
  
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
         // TODO add your handling code here:
-     
+        GameSession gs = new GameSession();
         nicknameDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         jButton3.setEnabled(false);
         nicknameDialog.addWindowListener(new WindowAdapter() {
@@ -249,13 +300,11 @@ public class Cliente extends javax.swing.JFrame {
                 jButton3.setEnabled(true);
                 if (connected=true) { 
                     if (nicknameDialog.jTextField12 != null) {  
-                        
-                        
+                         
                         
                         // Conectar al servidor aqui 
-                        conectarServer();
-                        
-                   
+                        conectarServer(); 
+                      
                         UUID uuid = UUID.randomUUID();
                         player = new Player(uuid, nicknameDialog.jTextField12); 
                         GameEvent newEvent = new GameEvent(1,player);
@@ -362,16 +411,20 @@ public class Cliente extends javax.swing.JFrame {
         new Cliente("localhost", 1500);
     } 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    public static javax.swing.JLabel Jugadores;
     private javax.swing.JPanel Sidebar;
     private javax.swing.JButton closeButton;
     private javax.swing.JPanel content;
+    private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jugadorReady;
     private javax.swing.JPanel playerReady;
     private javax.swing.JPanel playerReadySidebar;
+    private javax.swing.JLabel player_1;
+    private javax.swing.JLabel player_2;
+    private javax.swing.JLabel player_3;
+    private javax.swing.JLabel player_4;
     private javax.swing.JToggleButton readyPlayer;
     // End of variables declaration//GEN-END:variables
 }
