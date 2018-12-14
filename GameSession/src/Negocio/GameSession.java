@@ -8,11 +8,7 @@ public class GameSession {
     
     boolean active;
     
-    public void addPlayer(ArrayList players, Player E) { 
-        if (validatePlayer(players, E)) {
-            players.add(E); 
-        } 
-    }
+   
     public void showPlayers(ArrayList<Player> players){ 
         if (players != null) { 
             for (Player ply : players) {
@@ -25,17 +21,16 @@ public class GameSession {
         }
     }
     
-    public boolean validatePlayer(ArrayList<Player> players, Player p) {
-        if (players.size() < 3) {
-        
-        for (Player player: players) {
-            if (player.getName() == p.getName()) {  
-                return false;
-            }
-        } 
-        return true;
+    public GameEvent validatePlayer(ArrayList<Player> players, Player p) { 
+        if (players.size() < 4) {
+            for (int i = 0; i < players.size(); i++) {
+                if (players.get(i).getName().equals(p.getName())) { 
+                    return new GameEvent(4); // Nombre Repetido
+                } 
+            } 
+            return new GameEvent(12); //USERNAMEOK
         } else {
-            return false;
+            return new GameEvent(2); //Session full
         }
     }
 

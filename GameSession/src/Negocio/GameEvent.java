@@ -5,8 +5,8 @@ import java.util.ArrayList;
 import java.util.EventObject; 
 public class GameEvent implements Serializable {
     
-    public static final int GENERIC=0, LOGINREQUEST=1, SESSIONFULL=2, JOINSUCCESS=3, USERNAMETAKEN=4, UPDATELIST=5, PLAYERREADY=6, STARTGAME=7,
-            PLAYERLEFTSESSION=8, GAMEOVER=9, LEAVELOBBY=10, ALLPLAYERSREADY = 11;
+    public static final int GENERIC=0, LOGINREQUEST=1, SESSIONFULL=2, JOINSUCCESS=3, USERNAMETAKEN=4, UPDATELIST=5, PLAYERREADY=6, 
+            STARTGAME=7, PLAYERLEFTSESSION=8, GAMEOVER=9, LEAVELOBBY=10, ALLPLAYERSREADY = 11, USERNAMEOK=12, PRUEBA=13;
     public int type;
     Player player; 
     ArrayList<Player> playerList = new ArrayList<Player>(3);

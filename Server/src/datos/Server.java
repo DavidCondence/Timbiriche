@@ -83,6 +83,7 @@ public class Server implements GameEventListener{
         }
     } 
     public synchronized void broadcast(GameEvent event) {   
+        
         if(sg == null) {  
         } else {   
         }
@@ -105,15 +106,20 @@ public class Server implements GameEventListener{
     }  
      
     @Override
-    public void playerRequestJoin(GameEvent event) {
-        //if(gs.validatePlayer(jugadores, event.getPlayer()) == true){
-            jugadores.add(event.getPlayer());
-            updatePlayerList(event); 
-        /**
-        } else {
-            usernameTaken(new GameEvent(4, event.getPlayer()));
+    public void playerRequestJoin(GameEvent event) { 
+        GameEvent eventTmp = gs.validatePlayer(jugadores, event.getPlayer()); 
+        switch(eventTmp.getType()) { 
+            case GameEvent.USERNAMEOK:
+                jugadores.add(event.getPlayer()); 
+                updatePlayerList(event); 
+                break; 
+            case GameEvent.USERNAMETAKEN: 
+                updatePlayerList(new GameEvent(4)); 
+                break; 
+            case GameEvent.SESSIONFULL:
+                sessionFull(new GameEvent(2)); 
+                break;  
         }
-        * */
     }
 
     @Override
@@ -205,12 +211,13 @@ public class Server implements GameEventListener{
             }
             
         } 
+        
         public void run() { 
             boolean keepGoing = true;
             while(keepGoing) { 
                 try {
                     gameEvent = (GameEvent) sInput.readObject(); 
-               
+                    
                 } catch (IOException e) {
                     display(username + " Exception reading Streams: " + e);
                     break;				
@@ -234,6 +241,9 @@ public class Server implements GameEventListener{
                     
                         //}  
                         break; 
+                    default:
+                        playerRequestJoin(gameEvent);
+                        break;
                 }
             } 
             remove(id);
@@ -260,9 +270,9 @@ public class Server implements GameEventListener{
                 return false;
                 
             } 
-            try {
-                sOutput.reset();
+            try { 
                 sOutput.writeObject(msg); 
+                sOutput.reset();
                 //sg.llenarT();
                  
             } 

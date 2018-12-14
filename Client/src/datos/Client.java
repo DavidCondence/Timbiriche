@@ -206,6 +206,24 @@ public class Client implements GameEventListener  {
                             updatePlayerList(gameEvent); 
                         //}  
                         break; 
+                    case GameEvent.SESSIONFULL:
+                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
+                        
+                            disconnect();
+                             
+                        //}  
+                        break; 
+                    case GameEvent.USERNAMEOK:
+                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
+                            System.out.println("usero k");
+                             
+                        //}  
+                        break; 
+                    case GameEvent.USERNAMETAKEN:
+                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
+                            disconnect();
+                        //}  
+                        break; 
                     default: 
                         updatePlayerList(gameEvent);
                      break;
