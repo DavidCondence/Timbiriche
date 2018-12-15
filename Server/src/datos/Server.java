@@ -17,7 +17,7 @@ public class Server implements GameEventListener{
     public GameSession gs = new GameSession();
     public static ArrayList<Player>  jugadores = new ArrayList<Player>(3);
     public int readyCounter = 0;
-     
+    public Player playerTmp = new Player();
     public Server(int port) {
             this(port, null);
     } 
@@ -254,7 +254,9 @@ public class Server implements GameEventListener{
                     gameEvent = (GameEvent) sInput.readObject(); 
                     System.out.println(gameEvent.getType());
                 } catch (IOException e) {
-                    display(username + " Exception reading Streams: " + e);
+                    display(username + " Exception reading Streams: " + e);  
+                    jugadores.remove(playerTmp.getPlayer(jugadores, username));
+                    updatePlayerList(new GameEvent(0, jugadores));
                     break;				
                 }
                 catch(ClassNotFoundException e2) {
@@ -272,7 +274,7 @@ public class Server implements GameEventListener{
                         playerRequestJoin(gameEvent);
                         break;
                 }
-            } 
+            }  
             remove(id);
             close();
         } 

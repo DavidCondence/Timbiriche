@@ -1,12 +1,17 @@
 package Negocio; 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.UUID;
  
 public class Player implements Serializable { 
     UUID id;
     String name;
     int points;
-    boolean ready;
+    boolean ready; 
+
+    public Player() {
+    }
+    
     public Player(UUID id, String name){
         this.id = id;
         this.name = name;
@@ -57,6 +62,13 @@ public class Player implements Serializable {
     public void setReady(boolean ready) {
         this.ready = ready;
     }  
+    public Player getPlayer(ArrayList<Player> jugadores, String nickname){
+        Player player = null;
+        for (int i = 0; i < jugadores.size(); i++) 
+            if (jugadores.get(i).getName().equals(nickname)) 
+                player =  jugadores.get(i);  
+        return player;
+    }
     @Override
     public String toString() {
         return "Player{" + "id=" + id + ", name=" + name + ", points=" + points + ", ready=" + ready + '}';
