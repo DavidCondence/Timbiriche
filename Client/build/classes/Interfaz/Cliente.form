@@ -145,11 +145,11 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="player_1" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="player_2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="player_3" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="player_4" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="JButton_Config" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="player_1" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
                   </Group>

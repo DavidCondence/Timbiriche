@@ -188,11 +188,11 @@ public class Cliente extends javax.swing.JFrame {
             .addGroup(playerReadySidebarLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(playerReadySidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(player_1)
                     .addComponent(player_2)
                     .addComponent(player_3)
                     .addComponent(player_4)
-                    .addComponent(JButton_Config))
+                    .addComponent(JButton_Config)
+                    .addComponent(player_1))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         playerReadySidebarLayout.setVerticalGroup(
