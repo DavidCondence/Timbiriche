@@ -37,6 +37,12 @@ public class Cliente extends javax.swing.JFrame {
     public int defaultPort;
     public String defaultHost; 
     public boolean connected;
+    
+    
+    public Color playerColor_1 = Color.BLUE;
+    public Color playerColor_2 = Color.ORANGE;
+    public Color playerColor_3 = Color.YELLOW;
+    public Color playerColor_4 = Color.pink;
      boolean check=false;
     public Cliente() {  
         initComponents();
@@ -67,6 +73,7 @@ public class Cliente extends javax.swing.JFrame {
         for (int i = 0; i < players.size(); i++) {
             if (position == 1) {
                 player_1.setText(players.get(i).getName());
+                player_1.setForeground(playerColor_1);
                 if (players.get(i).isReady()) {
                     player_1.setIcon(new ImageIcon("src/images/checked.png")); 
                 } else {
@@ -75,6 +82,7 @@ public class Cliente extends javax.swing.JFrame {
             }
             if (position == 2) {
                 player_2.setText(players.get(i).getName());
+                player_2.setForeground(playerColor_2);
                 if (players.get(i).isReady()) {
                     player_2.setIcon(new ImageIcon("src/images/checked.png")); 
                 } else {
@@ -83,6 +91,7 @@ public class Cliente extends javax.swing.JFrame {
             }
             if (position == 3) {
                 player_3.setText(players.get(i).getName());
+                player_3.setForeground(playerColor_3);
                 if (players.get(i).isReady()) {
                     player_3.setIcon(new ImageIcon("src/images/checked.png")); 
                 } else {
@@ -91,6 +100,7 @@ public class Cliente extends javax.swing.JFrame {
             }
             if (position == 4) {
                 player_4.setText(players.get(i).getName());
+                player_4.setForeground(playerColor_4);
                 if (players.get(i).isReady()) {
                     player_4.setIcon(new ImageIcon("src/images/checked.png")); 
                 } else {
@@ -176,6 +186,11 @@ public class Cliente extends javax.swing.JFrame {
         player_1.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         player_1.setForeground(new java.awt.Color(255, 255, 255));
         player_1.setText("jLabel3");
+        player_1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                player_1MouseClicked(evt);
+            }
+        });
 
         player_2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
         player_2.setForeground(new java.awt.Color(255, 255, 255));
@@ -298,8 +313,8 @@ public class Cliente extends javax.swing.JFrame {
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(Sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(Sidebar, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
+            .addComponent(content, javax.swing.GroupLayout.DEFAULT_SIZE, 536, Short.MAX_VALUE)
         );
 
         getAccessibleContext().setAccessibleDescription("");
@@ -393,6 +408,11 @@ public class Cliente extends javax.swing.JFrame {
         });
         configDialog.setVisible(true); 
     }//GEN-LAST:event_JButton_ConfigActionPerformed
+
+    private void player_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_player_1MouseClicked
+        // TODO add your handling code here:
+        System.out.println("prueba");
+    }//GEN-LAST:event_player_1MouseClicked
      
     /**
      * @param args the command line arguments

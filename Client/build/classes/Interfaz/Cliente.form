@@ -39,8 +39,8 @@
     </DimensionLayout>
     <DimensionLayout dim="1">
       <Group type="103" groupAlignment="0" attributes="0">
-          <Component id="Sidebar" max="32767" attributes="0"/>
-          <Component id="content" max="32767" attributes="0"/>
+          <Component id="Sidebar" pref="536" max="32767" attributes="0"/>
+          <Component id="content" pref="536" max="32767" attributes="0"/>
       </Group>
     </DimensionLayout>
   </Layout>
@@ -213,6 +213,9 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="jLabel3"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="player_1MouseClicked"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JLabel" name="player_2">
               <Properties>
