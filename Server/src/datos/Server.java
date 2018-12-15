@@ -15,7 +15,10 @@ public class Server implements GameEventListener{
     public boolean keepGoing; 
     public GameSession gs = new GameSession();
     public static ArrayList<Player>  jugadores = new ArrayList<Player>(3);
-     
+    
+    
+    
+    
      
     public Server(int port) {
             this(port, null);
@@ -100,7 +103,6 @@ public class Server implements GameEventListener{
                 return;
             }
         }
-        
     }  
      
     @Override
@@ -111,10 +113,10 @@ public class Server implements GameEventListener{
                 jugadores.add(event.getPlayer()); 
                 updatePlayerList(event); 
                 break; 
-            case GameEvent.USERNAMETAKEN:  
-                broadcast(new GameEvent(4,event.getPlayer()));
+            case GameEvent.USERNAMETAKEN: 
+                broadcast(new GameEvent(4,event.getPlayer())); 
                 break; 
-            case GameEvent.SESSIONFULL: 
+            case GameEvent.SESSIONFULL:
                 sessionFull(new GameEvent(2)); 
                 break;  
         }

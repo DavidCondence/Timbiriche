@@ -13,15 +13,17 @@ public class Client implements GameEventListener  {
     public Socket socket; 
     public Cliente cg;  
     public String server, username;
+    public UUID uuid;
     public int port; 
-    public Client(String server, int port, String username) { 
-        this(server, port, username, null);
+    public Client(String server, int port, String username, UUID uuid) { 
+        this(server, port, username, uuid, null);
     } 
-    public Client(String server, int port, String username, Cliente cg) {
+    public Client(String server, int port, String username,UUID uuid, Cliente cg) {
         this.server = server;
         this.port = port;
         this.username = username; 
-        this.cg = cg;
+        this.uuid = uuid;
+        this.cg = cg; 
     } 
     public String getUsername() {
         return username;
@@ -107,8 +109,9 @@ public class Client implements GameEventListener  {
         try{
             if(socket != null) socket.close();
         } catch(Exception e) {}  
-            if(cg != null) 
-                cg.connectionFailed(); 
+            if(cg != null)
+                System.out.println("eee");
+                //cg.connectionFailed(); 
     }  
 
     @Override
@@ -182,7 +185,6 @@ public class Client implements GameEventListener  {
             while(true) {
                 try {
                     gameEvent = (GameEvent) sInput.readObject();  
-                    System.out.println(gameEvent.getType());
                     /**
                     updatePlayerList(gameEvent);
                     System.out.println(gameEvent);
@@ -202,26 +204,25 @@ public class Client implements GameEventListener  {
                 }
                 switch(gameEvent.getType()) { 
                     case GameEvent.UPDATELIST:
-                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
-                            updatePlayerList(gameEvent); 
-                        //}  
+                        updatePlayerList(gameEvent); 
                         break; 
                     case GameEvent.SESSIONFULL:
-                            disconnect();
-                            cg.handleSessionFull();
-                            System.out.println("Session full. Calling handler...");
-                        break;   
-                    case GameEvent.USERNAMEOK:
-                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
-                            System.out.println("usero k");
-                             
-                        //}  
+                        disconnect();
+                        cg.handleSessionFull();
+                        System.out.println("Session full. Calling handler...");
                         break; 
-                    case GameEvent.USERNAMETAKEN:  
-                        if (gameEvent.getPlayer().getName().equals(username)) {
-                            
+                        
+                    case GameEvent.USERNAMEOK:
+                        System.out.println("User OK");  
+                        break; 
+                        
+                    case GameEvent.USERNAMETAKEN: 
+                        System.out.println("Get player ID: "+gameEvent.getPlayer().getId());
+                        System.out.println("Session ID :"+uuid);
+                        if (gameEvent.getPlayer().getId().equals(uuid)) { 
                             cg.connectionFailed();
                         } 
+                        
                         break; 
                     default: 
                         updatePlayerList(gameEvent);
