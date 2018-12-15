@@ -6,13 +6,14 @@
 package Interfaz;
 
 import Interfaz.Dialogs.addNickName;
-import Negocio.GameSession;
-import Negocio.Player;
-import Datos.Client; 
 import Interfaz.Dialogs.Config;
 import Interfaz.Dialogs.changeName;
 import Interfaz.Dialogs.sessionFullDialog;
 import Negocio.GameEvent; 
+import Negocio.GameSession;
+import Negocio.Player;
+import datos.Client;
+import java.awt.Color;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;  
 import java.util.UUID;
@@ -39,8 +40,7 @@ public class Cliente extends javax.swing.JFrame {
         initComponents();
     }
     public Cliente(String host, int port) {   
-        this.setUndecorated (true);
-        this.setResizable(false);
+        this.setUndecorated(true);
         initComponents();
         this.setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE); 
@@ -60,18 +60,21 @@ public class Cliente extends javax.swing.JFrame {
         connected = false;
     }
     public void updatePlayers(ArrayList<Player> players){ 
-        
         String listaJugadores = ""; 
         int position = 1;
         for (int i = 0; i < players.size(); i++) {
             if (position == 1)
-                player_1.setText(players.get(i).getName()); 
+                player_1.setText(players.get(i).getName());
+                //player_1.setForeground(players.get(i).isReady() ? (Color.GREEN) : (Color.RED));
             if (position == 2)
-                player_2.setText(players.get(i).getName()); 
+                player_2.setText(players.get(i).getName());
+                //player_2.setForeground(players.get(i).isReady() ? (Color.GREEN) : (Color.RED));
             if (position == 3)
-                player_3.setText(players.get(i).getName()); 
+                player_3.setText(players.get(i).getName());
+                //player_3.setForeground(players.get(i).isReady() ? (Color.GREEN) : (Color.RED));
             if (position == 4)
-                player_4.setText(players.get(i).getName()); 
+                player_4.setText(players.get(i).getName());
+                //player_4.setForeground(players.get(i).isReady() ? (Color.RED) : (Color.RED));
             position++;
         } 
     }
@@ -299,7 +302,6 @@ public class Cliente extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
  
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
         GameSession gs = new GameSession();
         nicknameDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         jButton3.setEnabled(false);
@@ -309,8 +311,6 @@ public class Cliente extends javax.swing.JFrame {
                 jButton3.setEnabled(true);
                 if (connected=true) { 
                     if (nicknameDialog.jTextField12 != null) {  
-                         
-                        
                         // Conectar al servidor aqui 
                         conectarServer();   
                         UUID uuid = UUID.randomUUID(); 
@@ -322,10 +322,6 @@ public class Cliente extends javax.swing.JFrame {
                         playerReady.setVisible(false);
                         playerReadySidebar.setVisible(true);
                         jLabel1.setText(player.getName());
-
-                        //client.setUsername(player.getName());
-                         
-                
                     }
                 } else {
                     String message = "\"Problemas con el servidor\"\n"
@@ -369,6 +365,7 @@ public class Cliente extends javax.swing.JFrame {
     
     }
     public void handleSessionFull(){
+        
         fullDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         fullDialog.setVisible(true);
     }
@@ -400,20 +397,16 @@ public class Cliente extends javax.swing.JFrame {
     } 
     */
     private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-        // TODO add your handling code here:
-        System.exit(0);
+       System.exit(0);
     }//GEN-LAST:event_closeButtonActionPerformed
 
     private void readyPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readyPlayerActionPerformed
-        // TODO add your handling code here:
         player.setReady(true);
-        GameEvent newEvent = new GameEvent(6,player);
-        client.enviarEvent(newEvent); 
+        client.enviarEvent(new GameEvent(6,player)); 
         
     }//GEN-LAST:event_readyPlayerActionPerformed
 
     private void JButton_ConfigActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_JButton_ConfigActionPerformed
-        // TODO add your handling code here:
         GameSession gs = new GameSession();
         configDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         jButton3.setEnabled(false);

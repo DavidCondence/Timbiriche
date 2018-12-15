@@ -1,11 +1,12 @@
-package Datos;
+package datos;
  
 import Interfaz.ServerGUI;
-import Negocio.*;  
+import Negocio.*;
 import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.*; 
+
 public class Server implements GameEventListener{ 
     public static int uniqueId; 
     public ArrayList<ClientThread> clientThreadList; 
@@ -126,9 +127,7 @@ public class Server implements GameEventListener{
     public void usernameTaken(GameEvent event) {
         Random rand = new Random(); 
         int value = rand.nextInt(50);
-        
         System.out.println("Username: '" + event.getPlayer() + "' is not available.");
-     
         event.getPlayer().setName(event.getPlayer().getName()+value);
         jugadores.add(event.getPlayer());
         updatePlayerList(event);
@@ -138,14 +137,13 @@ public class Server implements GameEventListener{
     @Override
     public void updatePlayerList(GameEvent event) {
         sg.EliminarTablaTareas();
-        sg.llenarTablaMemoria(jugadores); 
-        GameEvent updateListPlayers = new GameEvent(5, jugadores);   
-        broadcast(updateListPlayers);
+        sg.llenarTablaMemoria(jugadores);  
+        broadcast(new GameEvent(5, jugadores));
     }
 
     @Override
     public void sessionFull(GameEvent event) {
-        broadcast(new GameEvent(2));
+        broadcast(new GameEvent(2, jugadores));
     }
 
     @Override
@@ -158,6 +156,7 @@ public class Server implements GameEventListener{
         jugadores.remove(event.getPlayer());
         updatePlayerList(new GameEvent(0));
     }
+
 
     @Override
     public void allPlayersReady(GameEvent event) {
@@ -192,6 +191,17 @@ public class Server implements GameEventListener{
     public void gameOver(GameEvent event) {
         
     }  
+
+    @Override
+    public void playerReady(GameEvent event) {
+        for (Player p : jugadores) {
+            if (p.getId().equals(event.getPlayer().getId())) {
+                p.setReady(true);
+            }
+        }
+        updatePlayerList(new GameEvent(5));
+        
+    }
     public class ClientThread extends Thread { 
         Socket socket;
         ObjectInputStream sInput;
@@ -235,18 +245,10 @@ public class Server implements GameEventListener{
                 
                 switch(gameEvent.getType()) { 
                     case GameEvent.LOGINREQUEST:
-                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){
-                             
-                            playerRequestJoin(gameEvent);
-                    
-                        //}  
+                        playerRequestJoin(gameEvent);
                         break; 
-                    case GameEvent.PLAYERREADY:
-                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){
-                             
-                            playerRequestJoin(gameEvent);
-                    
-                        //}  
+                    case GameEvent.PLAYERREADY:   
+                        playerReady(gameEvent);
                         break; 
                     default:
                         playerRequestJoin(gameEvent);
@@ -261,11 +263,11 @@ public class Server implements GameEventListener{
                 if(sOutput != null) sOutput.close();
             } catch(Exception e) {}
             try {
-                    if(sInput != null) sInput.close();
+                if(sInput != null) sInput.close();
             }
             catch(Exception e) {};
             try {
-                    if(socket != null) socket.close();
+                if(socket != null) socket.close();
             }
             catch (Exception e) {}
         }
@@ -275,13 +277,10 @@ public class Server implements GameEventListener{
             if(!socket.isConnected()) { 
                 close();
                 return false;
-                
             } 
             try { 
                 sOutput.writeObject(msg); 
-                sOutput.reset();
-                //sg.llenarT();
-                 
+                sOutput.reset(); 
             } 
             catch(IOException e) {
                 display("Error sending message to " + username);

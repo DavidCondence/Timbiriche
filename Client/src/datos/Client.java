@@ -1,8 +1,7 @@
-package Datos;
- 
- 
+package datos;
+
 import Interfaz.Cliente;
-import Negocio.*; 
+import Negocio.*;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -14,6 +13,7 @@ public class Client implements GameEventListener  {
     public Cliente cg;  
     public String server, username;
     public int port; 
+    boolean igual=true;
     public Client(String server, int port, String username) { 
         this(server, port, username, null);
     } 
@@ -133,7 +133,11 @@ public class Client implements GameEventListener  {
 
     @Override
     public void sessionFull(GameEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        for (Player p : gameEvent.getPlayerList())
+            if (p.getId().equals(cg.player.getId()))
+                igual = false;   
+        if (igual==true)
+            cg.handleSessionFull();   
     }
 
     @Override
@@ -145,7 +149,12 @@ public class Client implements GameEventListener  {
     public void playerLeftLobby(GameEvent event) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+    
+    @Override
+    public void playerReady(GameEvent event) {
+        
+    }
+    
     @Override
     public void allPlayersReady(GameEvent event) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
@@ -202,20 +211,13 @@ public class Client implements GameEventListener  {
                 }
                 switch(gameEvent.getType()) { 
                     case GameEvent.UPDATELIST:
-                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
-                            updatePlayerList(gameEvent); 
-                        //}  
+                        updatePlayerList(gameEvent);  
                         break; 
-                    case GameEvent.SESSIONFULL:
-                            disconnect();
-                            cg.handleSessionFull();
-                            System.out.println("Session full. Calling handler...");
+                    case GameEvent.SESSIONFULL: 
+                        sessionFull(gameEvent);
                         break;   
                     case GameEvent.USERNAMEOK:
-                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
                             System.out.println("usero k");
-                             
-                        //}  
                         break;  
                     default: 
                         updatePlayerList(gameEvent);

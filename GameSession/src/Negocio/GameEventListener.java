@@ -26,6 +26,8 @@ public interface GameEventListener extends EventListener {
     
     public void playerLeftLobby(GameEvent event);
     
+    public void playerReady(GameEvent event);
+    
     public void allPlayersReady(GameEvent event);
     
     public void sessionHasStarted(GameEvent event);

@@ -22,7 +22,7 @@ public class GameSession {
     }
     
     public GameEvent validatePlayer(ArrayList<Player> players, Player p) { 
-        if (players.size() < 4) {
+        if (players.size() < 2) {
             for (int i = 0; i < players.size(); i++) {
                 if (players.get(i).getName().equals(p.getName())) { 
                     return new GameEvent(4); // Nombre Repetido
