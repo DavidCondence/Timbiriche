@@ -471,6 +471,6 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel player_2;
     private javax.swing.JLabel player_3;
     private javax.swing.JLabel player_4;
-    private javax.swing.JToggleButton readyPlayer;
+    public static javax.swing.JToggleButton readyPlayer;
     // End of variables declaration//GEN-END:variables
 }

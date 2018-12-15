@@ -24,7 +24,7 @@ public interface GameEventListener extends EventListener {
     
     public void leaveLobby(GameEvent event);
     
-    public void playerLeftLobby(GameEvent event);
+    public void playerLeftLobby(GameEvent event); 
     
     public void playerReady(GameEvent event);
     

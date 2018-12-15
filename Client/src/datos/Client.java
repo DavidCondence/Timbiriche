@@ -162,7 +162,10 @@ public class Client implements GameEventListener  {
 
     @Override
     public void sessionHasStarted(GameEvent event) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        cg.player.setReady(true);
+        cg.readyPlayer.setSelected(true);
+        //Other game logic here
     }
 
     @Override
@@ -218,10 +221,17 @@ public class Client implements GameEventListener  {
                         break;   
                     case GameEvent.USERNAMEOK:
                             System.out.println("usero k");
-                        break;  
+                        break; 
+                    case GameEvent.ALLPLAYERSREADY:
+                        //handle All Players Ready
+                        break;
+                    case GameEvent.STARTGAME:
+                        sessionHasStarted(gameEvent);
+                        break;    
                     default: 
                         updatePlayerList(gameEvent);
                      break;
+                     
                 }
             }
         }

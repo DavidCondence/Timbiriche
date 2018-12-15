@@ -16,7 +16,7 @@ public class Server implements GameEventListener{
     public boolean keepGoing; 
     public GameSession gs = new GameSession();
     public static ArrayList<Player>  jugadores = new ArrayList<Player>(3);
-     
+    public int readyCounter = 0;
      
     public Server(int port) {
             this(port, null);
@@ -121,6 +121,9 @@ public class Server implements GameEventListener{
                 sessionFull(new GameEvent(2)); 
                 break;  
         } 
+        if (jugadores.size() == 4) {
+            allPlayersReady(new GameEvent(11)); 
+        }
     }
 
     @Override
@@ -163,7 +166,12 @@ public class Server implements GameEventListener{
         System.out.println("------------------------------------");
         System.out.println("ALL PLAYERS READY. Starting game...");
         System.out.println("------------------------------------");
+        
+        for (Player p : jugadores) {
+            p.setReady(true);
+        }
         sessionHasStarted(new GameEvent(11));
+        updatePlayerList(new GameEvent(0));
     }
 
     @Override
@@ -194,13 +202,23 @@ public class Server implements GameEventListener{
 
     @Override
     public void playerReady(GameEvent event) {
+        boolean allReady = false;
         for (Player p : jugadores) {
             if (p.getId().equals(event.getPlayer().getId())) {
                 p.setReady(true);
+                readyCounter++;
+                System.out.println("Players ready: " + readyCounter);
             }
         }
         updatePlayerList(new GameEvent(5));
         
+        if (jugadores.size() <= 3) 
+            if (jugadores.size() == 3)
+                if (readyCounter == 3)
+                    allPlayersReady(new GameEvent(11)); 
+            if (jugadores.size() == 2)
+                if (readyCounter == 2)
+                    allPlayersReady(new GameEvent(11));
     }
     public class ClientThread extends Thread { 
         Socket socket;
