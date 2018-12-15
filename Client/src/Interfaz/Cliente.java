@@ -19,7 +19,9 @@ import java.awt.event.WindowEvent;
 import java.util.UUID;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
-import java.util.ArrayList; 
+import java.util.ArrayList;  
+import javax.swing.ImageIcon;
+import javax.swing.UIManager;
 
 public class Cliente extends javax.swing.JFrame {
 
@@ -39,8 +41,8 @@ public class Cliente extends javax.swing.JFrame {
     public Cliente() {  
         initComponents();
     }
-    public Cliente(String host, int port) {   
-        this.setUndecorated(true);
+    public Cliente(String host, int port) { 
+        //this.setUndecorated(true); 
         initComponents();
         this.setVisible(true);
         setDefaultCloseOperation(EXIT_ON_CLOSE); 
@@ -63,18 +65,38 @@ public class Cliente extends javax.swing.JFrame {
         String listaJugadores = ""; 
         int position = 1;
         for (int i = 0; i < players.size(); i++) {
-            if (position == 1)
+            if (position == 1) {
                 player_1.setText(players.get(i).getName());
-                //player_1.setForeground(players.get(i).isReady() ? (Color.GREEN) : (Color.RED));
-            if (position == 2)
+                if (players.get(i).isReady()) {
+                    player_1.setIcon(new ImageIcon("src/images/checked.png")); 
+                } else {
+                    player_1.setIcon(new ImageIcon("src/images/cancel.png")); 
+                }
+            }
+            if (position == 2) {
                 player_2.setText(players.get(i).getName());
-                //player_2.setForeground(players.get(i).isReady() ? (Color.GREEN) : (Color.RED));
-            if (position == 3)
+                if (players.get(i).isReady()) {
+                    player_2.setIcon(new ImageIcon("src/images/checked.png")); 
+                } else {
+                    player_2.setIcon(new ImageIcon("src/images/cancel.png")); 
+                }
+            }
+            if (position == 3) {
                 player_3.setText(players.get(i).getName());
-                //player_3.setForeground(players.get(i).isReady() ? (Color.GREEN) : (Color.RED));
-            if (position == 4)
+                if (players.get(i).isReady()) {
+                    player_3.setIcon(new ImageIcon("src/images/checked.png")); 
+                } else {
+                    player_3.setIcon(new ImageIcon("src/images/cancel.png")); 
+                }
+            }
+            if (position == 4) {
                 player_4.setText(players.get(i).getName());
-                //player_4.setForeground(players.get(i).isReady() ? (Color.RED) : (Color.RED));
+                if (players.get(i).isReady()) {
+                    player_4.setIcon(new ImageIcon("src/images/checked.png")); 
+                } else {
+                    player_4.setIcon(new ImageIcon("src/images/cancel.png")); 
+                }
+            }
             position++;
         } 
     }
@@ -101,10 +123,9 @@ public class Cliente extends javax.swing.JFrame {
         content = new javax.swing.JPanel();
         jugadorReady = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        closeButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(780, 490));
+        setPreferredSize(new java.awt.Dimension(780, 536));
 
         Sidebar.setBackground(new java.awt.Color(7, 55, 99));
         Sidebar.setFont(new java.awt.Font("Trebuchet MS", 1, 14)); // NOI18N
@@ -254,30 +275,15 @@ public class Cliente extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        closeButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/cancel.png"))); // NOI18N
-        closeButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                closeButtonActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
         content.setLayout(contentLayout);
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jugadorReady, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, contentLayout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 19, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap())
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(contentLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(closeButton, javax.swing.GroupLayout.PREFERRED_SIZE, 17, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
-                .addComponent(jugadorReady, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addComponent(jugadorReady, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -369,37 +375,6 @@ public class Cliente extends javax.swing.JFrame {
         fullDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         fullDialog.setVisible(true);
     }
-    /**
-    public void changeName(){ 
-        Random rand = new Random(); 
-        int value = rand.nextInt(50);
-        if (check==false) {            
-            System.out.println("changeName: Cambiando nombre");  
-            player.setName(nicknameDialog.jTextField12+value);
-            GameEvent newEvent = new GameEvent(4,player);
-            client.enviarEvent(newEvent); 
-            check=true;
-        }  
-        
-        
-       schangeNameDialog.setVisible(true);
-        changeNameDialog.addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosed(WindowEvent e) { 
-                UUID uuid = UUID.randomUUID();
-                player.setName(changeNameDialog.nicknameDialog);
-                GameEvent newEvent = new GameEvent(1,player);
-                client.enviarEvent(newEvent); 
-                client.setUsername(changeNameDialog.nicknameDialog);
-                         
-            }
-        }); 
-    } 
-    */
-    private void closeButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_closeButtonActionPerformed
-       System.exit(0);
-    }//GEN-LAST:event_closeButtonActionPerformed
-
     private void readyPlayerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_readyPlayerActionPerformed
         player.setReady(true);
         client.enviarEvent(new GameEvent(6,player)); 
@@ -421,7 +396,7 @@ public class Cliente extends javax.swing.JFrame {
      
     /**
      * @param args the command line arguments
-     */
+     */ 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
@@ -459,7 +434,6 @@ public class Cliente extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton JButton_Config;
     private javax.swing.JPanel Sidebar;
-    private javax.swing.JButton closeButton;
     private javax.swing.JPanel content;
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;

@@ -249,7 +249,7 @@ public class Server implements GameEventListener{
         
         public void run() { 
             boolean keepGoing = true;
-            while(keepGoing) { 
+            while(keepGoing) {
                 try {
                     gameEvent = (GameEvent) sInput.readObject(); 
                     System.out.println(gameEvent.getType());
