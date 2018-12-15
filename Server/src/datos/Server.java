@@ -15,10 +15,7 @@ public class Server implements GameEventListener{
     public boolean keepGoing; 
     public GameSession gs = new GameSession();
     public static ArrayList<Player>  jugadores = new ArrayList<Player>(3);
-    
-    
-    
-    
+     
      
     public Server(int port) {
             this(port, null);
@@ -41,6 +38,7 @@ public class Server implements GameEventListener{
                 ClientThread t = new ClientThread(socket); 
                 clientThreadList.add(t); 
                 t.start();
+                t.writeMsg(new GameEvent(0, jugadores));
             } try {
                 
                 /**
@@ -83,6 +81,7 @@ public class Server implements GameEventListener{
         }
     } 
     public synchronized void broadcast(GameEvent event) {   
+        
         if(sg == null) {  
         } else {   
         }
@@ -102,24 +101,38 @@ public class Server implements GameEventListener{
                 return;
             }
         }
+        
     }  
      
     @Override
-    public void playerRequestJoin(GameEvent event) {
-        //if(gs.validatePlayer(jugadores, event.getPlayer()) == true){
-            jugadores.add(event.getPlayer());
-            updatePlayerList(event); 
-        /**
-        } else {
-            usernameTaken(new GameEvent(4, event.getPlayer()));
-        }
-        * */
+    public void playerRequestJoin(GameEvent event) {  
+        GameEvent eventTmp = gs.validatePlayer(jugadores, event.getPlayer());  
+        switch(eventTmp.getType()) { 
+            case GameEvent.USERNAMEOK:
+                jugadores.add(event.getPlayer()); 
+                updatePlayerList(event); 
+                break; 
+            case GameEvent.USERNAMETAKEN:   
+                System.out.println("usuario repetido");
+                usernameTaken(event); 
+                break; 
+            case GameEvent.SESSIONFULL: 
+                sessionFull(new GameEvent(2)); 
+                break;  
+        } 
     }
 
     @Override
     public void usernameTaken(GameEvent event) {
+        Random rand = new Random(); 
+        int value = rand.nextInt(50);
+        
         System.out.println("Username: '" + event.getPlayer() + "' is not available.");
-        broadcast(event);
+     
+        event.getPlayer().setName(event.getPlayer().getName()+value);
+        jugadores.add(event.getPlayer());
+        updatePlayerList(event);
+        
     }
 
     @Override
@@ -205,12 +218,13 @@ public class Server implements GameEventListener{
             }
             
         } 
+        
         public void run() { 
             boolean keepGoing = true;
             while(keepGoing) { 
                 try {
                     gameEvent = (GameEvent) sInput.readObject(); 
-               
+                    System.out.println(gameEvent.getType());
                 } catch (IOException e) {
                     display(username + " Exception reading Streams: " + e);
                     break;				
@@ -234,6 +248,9 @@ public class Server implements GameEventListener{
                     
                         //}  
                         break; 
+                    default:
+                        playerRequestJoin(gameEvent);
+                        break;
                 }
             } 
             remove(id);
@@ -260,9 +277,9 @@ public class Server implements GameEventListener{
                 return false;
                 
             } 
-            try {
-                sOutput.reset();
+            try { 
                 sOutput.writeObject(msg); 
+                sOutput.reset();
                 //sg.llenarT();
                  
             } 

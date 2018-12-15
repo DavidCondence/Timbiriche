@@ -107,9 +107,8 @@ public class Client implements GameEventListener  {
         try{
             if(socket != null) socket.close();
         } catch(Exception e) {}  
-            if(cg != null)
-                System.out.println("eee");
-                //cg.connectionFailed(); 
+            if(cg != null) 
+                cg.connectionFailed(); 
     }  
 
     @Override
@@ -183,6 +182,7 @@ public class Client implements GameEventListener  {
             while(true) {
                 try {
                     gameEvent = (GameEvent) sInput.readObject();  
+                    System.out.println(gameEvent.getType());
                     /**
                     updatePlayerList(gameEvent);
                     System.out.println(gameEvent);
@@ -206,6 +206,17 @@ public class Client implements GameEventListener  {
                             updatePlayerList(gameEvent); 
                         //}  
                         break; 
+                    case GameEvent.SESSIONFULL:
+                            disconnect();
+                            cg.handleSessionFull();
+                            System.out.println("Session full. Calling handler...");
+                        break;   
+                    case GameEvent.USERNAMEOK:
+                        //if(gs.validatePlayer(jugadores, gameEvent.getPlayer()) == true){ 
+                            System.out.println("usero k");
+                             
+                        //}  
+                        break;  
                     default: 
                         updatePlayerList(gameEvent);
                      break;

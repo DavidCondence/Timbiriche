@@ -5,17 +5,12 @@
             <url>src/Negocio/GameSession.java</url>
             <bookmark id="1">
                 <name/>
-                <line>49</line>
+                <line>43</line>
                 <key/>
             </bookmark>
         </file>
     </editor-bookmarks>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-        <group>
-            <file>file:/C:/Users/Admin/Desktop/Arquitectura%20Final/GameSession/src/Negocio/GameListener.java</file>
-            <file>file:/C:/Users/Admin/Desktop/Arquitectura%20Final/GameSession/src/Negocio/GameSession.java</file>
-            <file>file:/C:/Users/Admin/Desktop/Arquitectura%20Final/GameSession/src/Negocio/GameEvent.java</file>
-            <file>file:/C:/Users/Admin/Desktop/Arquitectura%20Final/GameSession/src/Negocio/GameEventListener.java</file>
-        </group>
+        <group/>
     </open-files>
 </project-private>
