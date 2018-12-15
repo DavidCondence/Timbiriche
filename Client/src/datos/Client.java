@@ -128,6 +128,7 @@ public class Client implements GameEventListener  {
         if(cg == null) { 
         } else {
             cg.updatePlayers(players); 
+            System.out.println("actualizando update");
         }  
     }
 

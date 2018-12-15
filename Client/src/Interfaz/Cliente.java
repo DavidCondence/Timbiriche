@@ -70,8 +70,16 @@ public class Cliente extends javax.swing.JFrame {
     public void updatePlayers(ArrayList<Player> players){ 
         String listaJugadores = ""; 
         int position = 1;
+        player_1.setText("");
+        player_1.setIcon(null); 
+        player_2.setText("");
+        player_2.setIcon(null); 
+        player_3.setText("");
+        player_3.setIcon(null); 
+        player_4.setText("");
+        player_4.setIcon(null); 
         for (int i = 0; i < players.size(); i++) {
-            if (position == 1) {
+            if (position == 1) { 
                 player_1.setText(players.get(i).getName());
                 player_1.setForeground(playerColor_1);
                 if (players.get(i).isReady()) {
