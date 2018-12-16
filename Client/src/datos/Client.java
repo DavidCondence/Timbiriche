@@ -1,7 +1,9 @@
 package datos;
 
 import Interfaz.Cliente;
-import Negocio.*;
+import Interfaz.Panel.Tablero;
+import Negocio.*; 
+import java.awt.Container;
 import java.net.*;
 import java.io.*;
 import java.util.*;
@@ -166,9 +168,18 @@ public class Client implements GameEventListener  {
         
         cg.player.setReady(true);
         cg.readyPlayer.setSelected(true);
+        
+        cg.jugadorReady.setVisible(false);
+        cg.tablero.setVisible(true);
+        
+        Tablero pnl = new Tablero();
+        pnl.setLocation(0, 0); 
+        cg.tablero.validate();
+        cg.tablero.repaint();   
+         
         //Other game logic here
     }
-
+ 
     @Override
     public void updateView(GameEvent event) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.

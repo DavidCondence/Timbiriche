@@ -257,6 +257,7 @@ public class Server implements GameEventListener{
                     display(username + " Exception reading Streams: " + e);  
                     jugadores.remove(playerTmp.getPlayer(jugadores, username));
                     updatePlayerList(new GameEvent(0, jugadores));
+                    readyCounter--;
                     break;				
                 }
                 catch(ClassNotFoundException e2) {

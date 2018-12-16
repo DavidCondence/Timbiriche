@@ -9,6 +9,7 @@ import Interfaz.Dialogs.addNickName;
 import Interfaz.Dialogs.Config;
 import Interfaz.Dialogs.changeName;
 import Interfaz.Dialogs.sessionFullDialog;
+import Interfaz.Panel.Tablero;
 import Negocio.GameEvent; 
 import Negocio.GameSession;
 import Negocio.Player;
@@ -62,6 +63,9 @@ public class Cliente extends javax.swing.JFrame {
         player_2.setText("");
         player_3.setText("");
         player_4.setText("");
+        
+       
+       
     } 
     public void connectionFailed() {  
         client.disconnect();
@@ -139,6 +143,7 @@ public class Cliente extends javax.swing.JFrame {
         player_4 = new javax.swing.JLabel();
         JButton_Config = new javax.swing.JButton();
         content = new javax.swing.JPanel();
+        tablero = new javax.swing.JPanel();
         jugadorReady = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
 
@@ -270,11 +275,22 @@ public class Cliente extends javax.swing.JFrame {
                 .addGroup(SidebarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(playerReadySidebar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(playerReady, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(46, Short.MAX_VALUE))
         );
 
         content.setBackground(new java.awt.Color(61, 133, 198));
         content.setPreferredSize(new java.awt.Dimension(429, 490));
+
+        javax.swing.GroupLayout tableroLayout = new javax.swing.GroupLayout(tablero);
+        tablero.setLayout(tableroLayout);
+        tableroLayout.setHorizontalGroup(
+            tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 429, Short.MAX_VALUE)
+        );
+        tableroLayout.setVerticalGroup(
+            tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 490, Short.MAX_VALUE)
+        );
 
         jugadorReady.setBackground(new java.awt.Color(61, 133, 198));
 
@@ -303,10 +319,14 @@ public class Cliente extends javax.swing.JFrame {
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jugadorReady, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(tablero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jugadorReady, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(tablero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -466,7 +486,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jugadorReady;
+    public static javax.swing.JPanel jugadorReady;
     private javax.swing.JPanel playerReady;
     private javax.swing.JPanel playerReadySidebar;
     private javax.swing.JLabel player_1;
@@ -474,5 +494,6 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel player_3;
     private javax.swing.JLabel player_4;
     public static javax.swing.JToggleButton readyPlayer;
+    public static javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
 }
