@@ -13,7 +13,7 @@ public class Client implements GameEventListener  {
     public ObjectOutputStream sOutput;		// to write on the socket
     public Socket socket; 
     public Cliente cg;  
-    public String server, username;
+    public static String server, username;
     public int port; 
     boolean igual=true;
     public Client(String server, int port, String username) { 
@@ -172,7 +172,7 @@ public class Client implements GameEventListener  {
         cg.jugadorReady.setVisible(false);
         cg.tablero.setVisible(true);
         
-        Tablero pnl = new Tablero();
+        Tablero pnl = new Tablero(cg.player);
         pnl.setLocation(0, 0); 
         cg.tablero.validate();
         cg.tablero.repaint();   

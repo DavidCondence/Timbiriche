@@ -57,7 +57,7 @@ public class Cliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         jugadorReady.setVisible(false);
         playerReadySidebar.setVisible(false);
-        
+        tablero.setVisible(false);
         
         player_1.setText("");
         player_2.setText("");
@@ -285,11 +285,11 @@ public class Cliente extends javax.swing.JFrame {
         tablero.setLayout(tableroLayout);
         tableroLayout.setHorizontalGroup(
             tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 429, Short.MAX_VALUE)
+            .addGap(0, 581, Short.MAX_VALUE)
         );
         tableroLayout.setVerticalGroup(
             tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 490, Short.MAX_VALUE)
+            .addGap(0, 536, Short.MAX_VALUE)
         );
 
         jugadorReady.setBackground(new java.awt.Color(61, 133, 198));

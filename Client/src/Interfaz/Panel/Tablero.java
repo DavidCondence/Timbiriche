@@ -6,6 +6,7 @@
 package Interfaz.Panel;
 
 import Interfaz.Cliente;
+import Negocio.Player;
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Graphics;
@@ -26,10 +27,15 @@ private int padding;
      * Creates new form Tablero
      */
 private static Tablero instanciaUnica = new Tablero();
- public Cliente cg;  
-    public Tablero() {
+public static Player player = new Player();
+ public Cliente cg; 
+    public Tablero(){
+
+    } 
+    public Tablero(Player player) {
         initComponents();    
-        inicializaTablero();      
+        inicializaTablero();    
+        this.player = player;
     }
      public static Tablero obtieneInstancia() {
       
@@ -40,8 +46,7 @@ private static Tablero instanciaUnica = new Tablero();
         ImageIcon icon = new ImageIcon("dot.jpg");
         int tamImagen = 15;
         int anchoBtn = tamImagen;
-        int largoBtn = 60;
-
+        int largoBtn = 60; 
         int coorx = 0, coory = 0;
         for (int y = 0; y < 5; y++) { 
             coorx = 0;
@@ -53,6 +58,7 @@ private static Tablero instanciaUnica = new Tablero();
                 Boton btn = new Boton();
                 btn.setBackground(Color.yellow);
                 btn.setBounds(coorx, coory, largoBtn, anchoBtn);
+                System.out.println("x: "+coorx+" y: "+coory);
                 cg.tablero.add(btn);
                 coorx += largoBtn; 
             }
@@ -68,8 +74,8 @@ private static Tablero instanciaUnica = new Tablero();
             for (int x = 0; x < 5; x++) {
                 Boton btnvertical = new Boton();
 
-                System.out.println("Ancho: "+coorx+"Largo: "+coory);
-                btnvertical.setForeground(Color.yellow);
+                System.out.println("X: "+coorx+"Y: "+coory);
+                btnvertical.setForeground(Color.DARK_GRAY);
                 btnvertical.setBounds(coorx, coory, anchoBtn, largoBtn);
                 cg.tablero.add(btnvertical);
 
