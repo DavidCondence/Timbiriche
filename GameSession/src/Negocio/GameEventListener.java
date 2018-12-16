@@ -39,4 +39,6 @@ public interface GameEventListener extends EventListener {
     public void playerLeftSession(GameEvent event);
     
     public void gameOver(GameEvent event);
+    
+    public void updateTablero(GameEvent event);
 }

@@ -6,13 +6,9 @@
 package Interfaz.Panel;
 
 import Interfaz.Cliente;
-import Negocio.Player;
-import java.awt.BasicStroke;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.geom.Ellipse2D;
-import javax.swing.BorderFactory;
+import Negocio.Movimiento; 
+import Negocio.Player; 
+import java.awt.Color; 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -28,13 +24,14 @@ private int padding;
      */
 private static Tablero instanciaUnica = new Tablero();
 public static Player player = new Player();
+  Movimiento[] movimientos;
  public Cliente cg; 
     public Tablero(){
 
     } 
-    public Tablero(Player player) {
+    public Tablero(Movimiento[] movimientos) {
         initComponents();    
-        inicializaTablero();    
+        generarTablero(movimientos);    
         this.player = player;
     }
      public static Tablero obtieneInstancia() {
@@ -42,50 +39,58 @@ public static Player player = new Player();
         return instanciaUnica;
     } 
     JLabel imagenPunto;
-    private void inicializaTablero(){
+  
+    private void generarTablero(Movimiento[] movimientos){
         ImageIcon icon = new ImageIcon("dot.jpg");
-        int tamImagen = 15;
+        int tamImagen = 6;
         int anchoBtn = tamImagen;
-        int largoBtn = 60; 
+        int largoBtn = 20; 
         int coorx = 0, coory = 0;
-        for (int y = 0; y < 5; y++) { 
+        int contador=0;
+        Player playervacio = new Player(); 
+        System.out.println("Vertical: ");
+        for (int y = 0; y < 20; y++) {
             coorx = 0;
-            for (int x = 1; x < 5; x++) { 
+            for (int x = 1; x < 20; x++) { 
                 imagenPunto = new JLabel(icon); 
                 imagenPunto.setBounds(coorx, coory, tamImagen, tamImagen);
                 cg.tablero.add(imagenPunto);
                 coorx += tamImagen;
-                Boton btn = new Boton();
-                btn.setBackground(Color.yellow);
-                btn.setBounds(coorx, coory, largoBtn, anchoBtn);
-                System.out.println("x: "+coorx+" y: "+coory);
+                Boton btn = new Boton(); 
+                btn.setBounds(movimientos[contador].getX(), movimientos[contador].getY(), largoBtn, anchoBtn); 
+                  
                 cg.tablero.add(btn);
                 coorx += largoBtn; 
+                contador++;
             }
             imagenPunto = new JLabel(icon); 
-            imagenPunto.setBounds(coorx, coory, tamImagen, tamImagen);
+            imagenPunto.setBounds(movimientos[contador].getX(), movimientos[contador].getY(), tamImagen, tamImagen);
             cg.tablero.add(imagenPunto);
             coory += (largoBtn + tamImagen); 
+            contador++;
         } 
         coorx = 0;
         coory = tamImagen;
-        for (int y = 1; y < 5; y++) {
+        System.out.println("Horizontal: ");
+        for (int y = 1; y < 20; y++) {
             coorx=0;
-            for (int x = 0; x < 5; x++) {
+            for (int x = 0; x < 20; x++) {
                 Boton btnvertical = new Boton();
-
-                System.out.println("X: "+coorx+"Y: "+coory);
+ 
                 btnvertical.setForeground(Color.DARK_GRAY);
-                btnvertical.setBounds(coorx, coory, anchoBtn, largoBtn);
+                btnvertical.setBounds(movimientos[contador].getX(), movimientos[contador].getY(), anchoBtn, largoBtn);
                 cg.tablero.add(btnvertical);
 
                 coorx+=(largoBtn + tamImagen);
+                contador++;
             }
             coory += (largoBtn + tamImagen);
+            contador++;
         }
         cg.tablero.revalidate();
-        cg.tablero.repaint();
+        cg.tablero.repaint(); 
     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always

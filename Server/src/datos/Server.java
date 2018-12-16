@@ -1,11 +1,11 @@
 package datos;
  
 import Interfaz.ServerGUI;
-import Negocio.*;
+import Negocio.*; 
 import java.io.*;
 import java.net.*;
 import java.text.SimpleDateFormat;
-import java.util.*; 
+import java.util.*;  
 
 public class Server implements GameEventListener{ 
     public static int uniqueId; 
@@ -16,6 +16,7 @@ public class Server implements GameEventListener{
     public boolean keepGoing; 
     public GameSession gs = new GameSession();
     public static ArrayList<Player>  jugadores = new ArrayList<Player>(3);
+    public static Movimiento[] movimientos = new Movimiento[1200]; ;
     public int readyCounter = 0;
     public Player playerTmp = new Player();
     public Server(int port) {
@@ -172,13 +173,21 @@ public class Server implements GameEventListener{
         }
         sessionHasStarted(new GameEvent(11));
         updatePlayerList(new GameEvent(0));
+        inicializaTablero();
+        for (int i = 0; i < movimientos.length; i++) {
+            if (movimientos[i] != null) { 
+                System.out.println(movimientos[i].getX()+" : "+movimientos[i].getY());
+            } 
+        } 
+        //updateTablero(event);
+        
     }
 
     @Override
     public void sessionHasStarted(GameEvent event) {
         gs.setActive(true);
         System.out.println("Session is now active.");
-        broadcast(new GameEvent(7));
+        //broadcast(new GameEvent(7));
     }
 
     @Override
@@ -219,6 +228,42 @@ public class Server implements GameEventListener{
             if (jugadores.size() == 2)
                 if (readyCounter == 2)
                     allPlayersReady(new GameEvent(11));
+    }
+
+    @Override
+    public void updateTablero(GameEvent event) {
+        broadcast(new GameEvent(14, movimientos));
+    }
+    public static void inicializaTablero(){  
+        int tamImagen = 6;
+        int anchoBtn = tamImagen;
+        int largoBtn = 20; 
+        int coorx = 0, coory = 0;
+        int contador=1; 
+        for (int y = 0; y < 10; y++) {
+            coorx = 0;
+            for (int x = 1; x < 10; x++) {  
+                coorx += tamImagen; 
+                movimientos[contador] = new Movimiento(coorx,coory,'v'); 
+                coorx += largoBtn; 
+                contador++;
+            } 
+            coory += (largoBtn + tamImagen); 
+            contador++;
+        } 
+        coorx = 0;
+        coory = tamImagen; 
+        for (int y = 1; y < 10; y++) {
+            coorx=0;
+            for (int x = 0; x < 10; x++) {  
+                movimientos[contador] = new Movimiento(coorx,coory,'h');  
+                coorx+=(largoBtn + tamImagen);
+                contador++;
+            }
+            coory += (largoBtn + tamImagen);
+            contador++;
+        }  
+        
     }
     public class ClientThread extends Thread { 
         Socket socket;

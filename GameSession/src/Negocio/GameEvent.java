@@ -6,15 +6,18 @@ import java.util.EventObject;
 public class GameEvent implements Serializable {
     
     public static final int GENERIC=0, LOGINREQUEST=1, SESSIONFULL=2, JOINSUCCESS=3, USERNAMETAKEN=4, UPDATELIST=5, PLAYERREADY=6, 
-            STARTGAME=7, PLAYERLEFTSESSION=8, GAMEOVER=9, LEAVELOBBY=10, ALLPLAYERSREADY = 11, USERNAMEOK=12, PRUEBA=13;
+            STARTGAME=7, PLAYERLEFTSESSION=8, GAMEOVER=9, LEAVELOBBY=10, ALLPLAYERSREADY = 11, USERNAMEOK=12, PRUEBA=13,MOVIMIENTOSLIST = 14 ;
     public int type;
     Player player; 
     ArrayList<Player> playerList = new ArrayList<Player>(3);
-    
+    Movimiento[] movimientos;
     public GameEvent(int type) {
         this.type = type;
     }
-    
+    public GameEvent(int type, Movimiento[] movimientos) {
+        this.type = type;
+        this.movimientos = movimientos;
+    }
     public GameEvent(int type, Player player) {
         this.type = type;
         this.player = player;
@@ -48,6 +51,12 @@ public class GameEvent implements Serializable {
     public void setPlayerList(ArrayList<Player> playerList) {
         this.playerList = playerList;
     } 
-    
+    public Movimiento[] getMovimientos() {
+        return movimientos;
+    }
+
+    public void setMovimientos(Movimiento[] movimientos) {
+        this.movimientos = movimientos;
+    }
     
 }

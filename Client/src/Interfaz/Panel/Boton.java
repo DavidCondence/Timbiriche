@@ -24,15 +24,14 @@ Player owner;
 Cliente cg;
 private int coorx = 0, coory = 0;
 private static int identificador=1;
-private int id;
+private int id; 
     public Boton(){ 
         super(); 
         addActionListener(this); 
         setContentAreaFilled(false);
         setBorderPainted(false);
         this.id =identificador++;
-        setOpaque(true);
-        setBackground(Color.yellow);   
+        setOpaque(true);   
     } 
  
     public int getId(){

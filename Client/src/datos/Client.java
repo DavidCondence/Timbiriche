@@ -172,12 +172,8 @@ public class Client implements GameEventListener  {
         cg.jugadorReady.setVisible(false);
         cg.tablero.setVisible(true);
         
-        Tablero pnl = new Tablero(cg.player);
-        pnl.setLocation(0, 0); 
-        cg.tablero.validate();
-        cg.tablero.repaint();   
-         
-        //Other game logic here
+        
+          
     }
  
     @Override
@@ -199,7 +195,19 @@ public class Client implements GameEventListener  {
     public void gameOver(GameEvent event) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
-
+  
+    @Override
+    public void updateTablero(GameEvent event) {
+        System.out.println("updateTablero cliente");
+        
+        
+        /**
+         * Tablero pnl = new Tablero(event.getMovimientos());
+        pnl.setLocation(0, 0); 
+        cg.tablero.validate();
+        cg.tablero.repaint(); 
+        * */
+    }
     GameEvent gameEvent; 
     public class ListenFromServer extends Thread { 
         public void run() {
@@ -239,7 +247,10 @@ public class Client implements GameEventListener  {
                         break;
                     case GameEvent.STARTGAME:
                         sessionHasStarted(gameEvent);
-                        break;    
+                        break; 
+                    case GameEvent.MOVIMIENTOSLIST:
+                        updateTablero(gameEvent);
+                        break; 
                     default: 
                         updatePlayerList(gameEvent);
                      break;
