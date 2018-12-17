@@ -171,7 +171,7 @@ public class Server implements GameEventListener{
             p.setReady(true);
         }
         sessionHasStarted(new GameEvent(11));
-        updatePlayerList(new GameEvent(0));
+        updatePlayerList(new GameEvent(0)); 
     }
 
     @Override
@@ -257,6 +257,8 @@ public class Server implements GameEventListener{
                     display(username + " Exception reading Streams: " + e);  
                     jugadores.remove(playerTmp.getPlayer(jugadores, username));
                     updatePlayerList(new GameEvent(0, jugadores));
+                    readyCounter--;
+                    
                     break;				
                 }
                 catch(ClassNotFoundException e2) {
