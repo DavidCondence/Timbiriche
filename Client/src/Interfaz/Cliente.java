@@ -9,6 +9,7 @@ import Interfaz.Dialogs.addNickName;
 import Interfaz.Dialogs.Config;
 import Interfaz.Dialogs.changeName;
 import Interfaz.Dialogs.sessionFullDialog;
+import Interfaz.Panel.Boton; 
 import Negocio.GameEvent; 
 import Negocio.GameSession;
 import Negocio.Player;
@@ -21,6 +22,9 @@ import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import java.util.ArrayList;  
 import javax.swing.ImageIcon;
+import javax.swing.JColorChooser;
+import javax.swing.JDialog;
+import javax.swing.JLabel;
 import javax.swing.UIManager;
 
 public class Cliente extends javax.swing.JFrame {
@@ -33,7 +37,7 @@ public class Cliente extends javax.swing.JFrame {
     Config configDialog = new Config(); 
     sessionFullDialog fullDialog = new sessionFullDialog();
     changeName changeNameDialog = new changeName();
-    public Client client; 
+    public static Client client; 
     public int defaultPort;
     public String defaultHost; 
     public boolean connected;
@@ -56,13 +60,16 @@ public class Cliente extends javax.swing.JFrame {
         this.setLocationRelativeTo(null);
         jugadorReady.setVisible(false);
         playerReadySidebar.setVisible(false);
-        
+        tablero.setVisible(false);
         
         player_1.setText("");
         player_2.setText("");
         player_3.setText("");
         player_4.setText("");
     } 
+    public Client getClient(){
+        return client;
+    }
     public void connectionFailed() {  
         client.disconnect();
         connected = false;
@@ -141,6 +148,7 @@ public class Cliente extends javax.swing.JFrame {
         content = new javax.swing.JPanel();
         jugadorReady = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
+        tablero = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setPreferredSize(new java.awt.Dimension(780, 536));
@@ -295,7 +303,18 @@ public class Cliente extends javax.swing.JFrame {
             .addGroup(jugadorReadyLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(545, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout tableroLayout = new javax.swing.GroupLayout(tablero);
+        tablero.setLayout(tableroLayout);
+        tableroLayout.setHorizontalGroup(
+            tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 581, Short.MAX_VALUE)
+        );
+        tableroLayout.setVerticalGroup(
+            tableroLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 556, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout contentLayout = new javax.swing.GroupLayout(content);
@@ -303,10 +322,14 @@ public class Cliente extends javax.swing.JFrame {
         contentLayout.setHorizontalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jugadorReady, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(tablero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         contentLayout.setVerticalGroup(
             contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jugadorReady, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(contentLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addComponent(tablero, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -393,6 +416,9 @@ public class Cliente extends javax.swing.JFrame {
                 return;
     
     }
+    public void enviarMovimienot(String username){
+        System.out.println("movimiento enviado: "+username);
+    }
     public void handleSessionFull(){
         
         fullDialog.setDefaultCloseOperation(DISPOSE_ON_CLOSE);
@@ -419,9 +445,13 @@ public class Cliente extends javax.swing.JFrame {
 
     private void player_1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_player_1MouseClicked
         // TODO add your handling code here:
-        System.out.println("prueba");
+        Color c = JColorChooser.showDialog(null, "Choose a Color", player_1.getForeground());
+        if (c != null) {
+            playerColor_1=c;
+            player_1.setForeground(c);
+        }
     }//GEN-LAST:event_player_1MouseClicked
-     
+    
     /**
      * @param args the command line arguments
      */ 
@@ -466,7 +496,7 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JButton jButton3;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JPanel jugadorReady;
+    public static javax.swing.JPanel jugadorReady;
     private javax.swing.JPanel playerReady;
     private javax.swing.JPanel playerReadySidebar;
     private javax.swing.JLabel player_1;
@@ -474,5 +504,6 @@ public class Cliente extends javax.swing.JFrame {
     private javax.swing.JLabel player_3;
     private javax.swing.JLabel player_4;
     public static javax.swing.JToggleButton readyPlayer;
+    public static javax.swing.JPanel tablero;
     // End of variables declaration//GEN-END:variables
 }

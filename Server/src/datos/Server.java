@@ -16,6 +16,7 @@ public class Server implements GameEventListener{
     public boolean keepGoing; 
     public GameSession gs = new GameSession();
     public static ArrayList<Player>  jugadores = new ArrayList<Player>(3);
+    public static ArrayList<Movimientos> movimientos = new ArrayList<Movimientos>();
     public int readyCounter = 0;
     public Player playerTmp = new Player();
     public Server(int port) {
@@ -172,6 +173,8 @@ public class Server implements GameEventListener{
         }
         sessionHasStarted(new GameEvent(11));
         updatePlayerList(new GameEvent(0));
+        tableroUpdate(new GameEvent(0));
+        
     }
 
     @Override
@@ -220,6 +223,11 @@ public class Server implements GameEventListener{
                 if (readyCounter == 2)
                     allPlayersReady(new GameEvent(11));
     }
+
+    @Override
+    public void tableroUpdate(GameEvent event) {
+        broadcast(new GameEvent(14, jugadores, movimientos));
+    }
     public class ClientThread extends Thread { 
         Socket socket;
         ObjectInputStream sInput;
@@ -257,6 +265,7 @@ public class Server implements GameEventListener{
                     display(username + " Exception reading Streams: " + e);  
                     jugadores.remove(playerTmp.getPlayer(jugadores, username));
                     updatePlayerList(new GameEvent(0, jugadores));
+                    readyCounter--;
                     break;				
                 }
                 catch(ClassNotFoundException e2) {
@@ -269,7 +278,10 @@ public class Server implements GameEventListener{
                         break; 
                     case GameEvent.PLAYERREADY:   
                         playerReady(gameEvent);
-                        break; 
+                        break;  
+                    case GameEvent.NEWMOVIMIENTO:
+                        System.out.println("nuevo movimiento");
+                        break;
                     default:
                         playerRequestJoin(gameEvent);
                         break;

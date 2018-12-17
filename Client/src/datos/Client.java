@@ -1,16 +1,17 @@
 package datos;
 
-import Interfaz.Cliente;
+import Interfaz.Cliente; 
+import Interfaz.Panel.Tablero;
 import Negocio.*;
 import java.net.*;
 import java.io.*;
 import java.util.*;
  
 public class Client implements GameEventListener  { 
-    public ObjectInputStream sInput;		// to read from the socket
-    public ObjectOutputStream sOutput;		// to write on the socket
+    public static ObjectInputStream sInput;		// to read from the socket
+    public static ObjectOutputStream sOutput;		// to write on the socket
     public Socket socket; 
-    public Cliente cg;  
+    public static Cliente cg;  
     public String server, username;
     public int port; 
     boolean igual=true;
@@ -70,7 +71,7 @@ public class Client implements GameEventListener  {
     }
     public void enviarEvent(GameEvent msg) {
         try {
-            sOutput.writeObject(msg);
+            sOutput.writeObject(msg); 
             sOutput.reset();
             
         }
@@ -167,6 +168,10 @@ public class Client implements GameEventListener  {
         cg.player.setReady(true);
         cg.readyPlayer.setSelected(true);
         //Other game logic here
+        
+        cg.tablero.setVisible(true);
+      
+         
     }
 
     @Override
@@ -187,8 +192,15 @@ public class Client implements GameEventListener  {
     @Override
     public void gameOver(GameEvent event) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    } 
+    @Override
+    public void tableroUpdate(GameEvent event) { 
+        cg.jugadorReady.setVisible(false);
+        Tablero pnl = new Tablero(cg,event.getMovimientosList());
+        pnl.setLocation(0, 0); 
+        cg.tablero.validate();
+        cg.tablero.repaint();   
     }
-
     GameEvent gameEvent; 
     public class ListenFromServer extends Thread { 
         public void run() {
@@ -228,7 +240,13 @@ public class Client implements GameEventListener  {
                         break;
                     case GameEvent.STARTGAME:
                         sessionHasStarted(gameEvent);
-                        break;    
+                        break; 
+                    case GameEvent.TABLEROUPDATE:
+                        tableroUpdate(gameEvent);
+                        break;
+                    case GameEvent.NEWMOVIMIENTO:
+                        System.out.println("NEWMOVIMIENTO");
+                        break;
                     default: 
                         updatePlayerList(gameEvent);
                      break;
